@@ -1,0 +1,81 @@
+{
+	"name": "ansi-insert",
+	"version": "1.0.0",
+	"description": "A lib to handle operation on ANSI text",
+	"license": "MIT",
+	"author": "MacFJA",
+	"homepage": "https://github.com/MacFJA/js-ansi",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MacFJA/js-ansi"
+	},
+	"bugs": "https://github.com/MacFJA/js-ansi/issues",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.mjs",
+			"types": "./dist/index.d.ts"
+		},
+		"./extension": {
+			"require": "./dist/extension.cjs",
+			"import": "./dist/extension.mjs",
+			"default": "./dist/extension.mjs",
+			"types": "./dist/extension.d.ts"
+		},
+		"./decorate": {
+			"require": "./dist/decorate.cjs",
+			"import": "./dist/decorate.mjs",
+			"default": "./dist/decorate.mjs",
+			"types": "./dist/decorate.d.ts"
+		}
+	},
+	"main": "dist/index.mjs",
+	"files": [
+		"dist/"
+	],
+	"scripts": {
+		"benckmark": "node -r tsimp benchmark.spec.js",
+		"build": "pkgroll --clean-dist --minify",
+		"build:dev": "tsc",
+		"example": "node --require tsimp example/decorate.js",
+		"fix": "run-s fix:*",
+		"fix:biome": "biome check --write .",
+		"fix:pkg": "prettier-package-json --use-tabs --write ./package.json",
+		"lint": "run-p --aggregate-output --continue-on-error --print-label lint:*",
+		"lint:biome": "biome check .",
+		"lint:pkg": "prettier-package-json --use-tabs ./package.json --list-different 1>/dev/null || prettier-package-json --use-tabs ./package.json | diff --color -u ./package.json -",
+		"lint:tsc": "tsc --noEmit",
+		"prepublishOnly": "npm run build",
+		"test": "c8 ava test",
+		"test:dev": "ava test/display/strip-ansi.spec.js",
+		"test:watch": "ava --watch test"
+	},
+	"dependencies": {
+		"regexp.escape": "^2.0.1",
+		"wordwrapjs": "^5.1.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": ">= 20",
+		"@types/regexp.escape": "^2.0.0",
+		"@types/wordwrapjs": "^5.1.2",
+		"ava": "^6.2.0",
+		"benchmark": "^2.1.4",
+		"c8": "^10.1.3",
+		"npm-run-all": "^4.1.5",
+		"picocolors": "^1.1.1",
+		"pkgroll": "^2.11.2",
+		"prettier-package-json": "^2.8.0",
+		"tsimp": "^2.0.12",
+		"typescript": "^5.5.3",
+		"wrap-ansi": "^9.0.0"
+	},
+	"ava": {
+		"nodeArguments": [
+			"--import=tsimp"
+		],
+		"serial": true
+	}
+}
