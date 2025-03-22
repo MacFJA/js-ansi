@@ -1,5 +1,5 @@
 {
-	"name": "ansi-insert",
+	"name": "@macfja/ansi",
 	"version": "1.0.0",
 	"description": "A lib to handle operation on ANSI text",
 	"license": "MIT",
